@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+body, html {
+    height: 100%;
+    /*background-color: #192c59;*/
+}
+
+.dragable {
+    -webkit-app-region: drag;
+    -webkit-user-select: none;
+}
+
+.box {
+    display: block;
+    width: 20vw;
+    height: 20vh;
+    background-color: red;
+    color: white;
+
+}

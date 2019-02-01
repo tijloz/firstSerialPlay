@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <title>Boat Control Panel</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mainWindow.css">
+</head>
+<body style="overflow: hidden">
+
+    <!-- The video -->
+    <video autoplay muted loop id="myVideo">
+        <source src="assets/Videos/Sea(Day).mp4" type="video/mp4">
+    </video>
+
+    <!-- Optional: some overlay text to describe the video -->
+    <div class="content">
+        <!-- Use a button to pause/play the video with JavaScript -->
+        <button id="mainBtn" onclick="pauseFunction()">Pause</button>
+        <button id="mainBtn" role="button"><a href="lightsWindow.html">Lights</a></button>
+        <button id="mainBtn" role="button"><a href="protectionWindow.html">Protection</a></button>
+
+        <button id="lightBtn" role="button">Light</button>
+        <div class="bg"></div>
+
+
+    </div>
+
+    <ul></ul>
+
+    <script>
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+        const ul = document.querySelector('ul');
+
+        // Get the video
+        var video = document.getElementById("myVideo");
+        // Get the button
+        var btn = document.getElementById("pauseBtn");
+        // Pause and play the video, and change the button text
+        function pauseFunction() {
+            if (video.paused) {
+                video.play();
+                btn.innerHTML = "Pause";
+            } else {
+                video.pause();
+                btn.innerHTML = "Play";
+            }
+        }
+
+        document.getElementById("lightBtn").addEventListener("click", function () {
+            console.log("Requesting LED OFF");
+            require('electron').ipcRenderer.send('lightChannel', {lightState:1});
+
+            // require('electron').ipcRenderer.send('sendLEDState', {LightLED: false});
+
+        });
+
+    </script>
+</body>
+</html>
